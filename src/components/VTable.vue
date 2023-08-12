@@ -1,11 +1,10 @@
 <script setup lang="ts">
-import { collection } from 'firebase/firestore'
-import { getCurrentUser, useCollection, useFirestore } from 'vuefire'
+import { storeToRefs } from 'pinia'
+import { useSnacksStore } from '@/stores/counter'
 
-const db = useFirestore()
-const user = await getCurrentUser()
+const snacksStore = useSnacksStore()
 
-const allSnacks = useCollection(collection(db, `/users/${user?.uid}/snacks`))
+const { orders } = storeToRefs(snacksStore)
 </script>
 
 <template>
@@ -24,7 +23,7 @@ const allSnacks = useCollection(collection(db, `/users/${user?.uid}/snacks`))
       </thead>
       <tbody>
         <!-- row 1 -->
-        <tr v-for="(snacks, idx) in allSnacks" :key="snacks.id">
+        <tr v-for="(snacks, idx) in orders" :key="snacks?.id + idx ">
           <th>{{ idx }}</th>
           <td>{{ snacks.name }}</td>
           <td>{{ snacks.cost }}</td>

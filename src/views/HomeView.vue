@@ -4,9 +4,14 @@ import Hero from '@/components/Hero.vue'
 
 <template>
   <div class="mx-auto flex-col space-y-2 max-w-7xl flex justify-center items-center h-full">
+    <h1 class="text-2xl py-8 ">
+      Go to <RouterLink to="/snacks" class="gray font-mono text-blue-800 mx-3">
+        /snacks
+      </RouterLink> for order
+    </h1>
     <Hero />
-    <h1 class="text-3xl font-bold ">
-      Listen To The Universe !
+    <h1 class="text-xl pt-5 font-bold ">
+      Start Your Day With Motivation !
     </h1>
   </div>
 </template>
