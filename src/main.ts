@@ -5,6 +5,7 @@ import { VueFire, VueFireAuth } from 'vuefire'
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 
+import { autoAnimatePlugin } from '@formkit/auto-animate/vue'
 import App from './App.vue'
 import router from './router'
 
@@ -23,5 +24,7 @@ app.use(VueFire, {
     VueFireAuth(),
   ],
 })
+
+app.use(autoAnimatePlugin)
 
 app.mount('#app')

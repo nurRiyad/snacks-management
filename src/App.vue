@@ -1,10 +1,25 @@
+<script setup lang="ts">
+import { useAutoAnimate } from '@formkit/auto-animate/vue'
+import Navbar from './components/Navbar.vue'
+import Footer from './components/Footer.vue'
+
+const [parent] = useAutoAnimate()
+</script>
+
 <template>
-  <div class="bg-green-100 text-5xl">
-    <h1>Al Asad Nur Riyad</h1>
-    <button
-      class="inline-block cursor-pointer rounded-md bg-gray-800 px-4 py-3 text-center text-sm font-semibold uppercase text-white transition duration-200 ease-in-out hover:bg-gray-900"
-    >
-      Button
-    </button>
+  <div class="gd-container">
+    <Navbar />
+    <main ref="parent">
+      <RouterView />
+    </main>
+    <Footer />
   </div>
 </template>
+
+<style scoped>
+.gd-container {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  min-height: 100vh;
+}
+</style>

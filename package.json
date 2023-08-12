@@ -12,6 +12,7 @@
     "lint:fix": "eslint . --fix"
   },
   "dependencies": {
+    "@formkit/auto-animate": "^0.7.0",
     "firebase": "^10.1.0",
     "pinia": "^2.1.4",
     "vue": "^3.3.4",
