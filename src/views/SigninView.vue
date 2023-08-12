@@ -31,7 +31,7 @@ const actionCodeSettings = {
 function googleSignIn() {
   signInWithPopup(auth, provider)
     .then(() => {
-      router.push('/dashboard')
+      router.push('/snacks')
     })
     .catch((error) => {
       const errorCode = error.code
@@ -80,7 +80,7 @@ onMounted(() => {
         // Clear email from storage.
         showProcessing.value = false
         window.localStorage.removeItem('emailForSignIn')
-        router.push('/dashboard')
+        router.push('/snacks')
       })
       .catch((error) => {
         showProcessing.value = false

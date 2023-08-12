@@ -38,11 +38,11 @@ function onLogoutClick() {
         </RouterLink>
         <RouterLink
           v-if="user"
-          to="/dashboard"
+          to="/snacks"
           class="btn btn-ghost normal-case text-xl"
           :class="{ 'text-primary': !isRoot }"
         >
-          Dashboard
+          Snacks
         </RouterLink>
       </div>
       <div class="flex-none">

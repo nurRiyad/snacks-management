@@ -2,7 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import { getCurrentUser } from 'vuefire'
 import HomeView from '@/views/HomeView.vue'
 import SigninView from '@/views/SigninView.vue'
-import DashboardView from '@/views/DashboardView.vue'
+import SnacksView from '@/views/SnacksView.vue'
 import AdminView from '@/views/AdminView.vue'
 
 const router = createRouter({
@@ -15,9 +15,9 @@ const router = createRouter({
     },
     {
       meta: { requiresAuth: true },
-      path: '/dashboard',
-      name: 'dashboard',
-      component: DashboardView,
+      path: '/snacks',
+      name: 'snacks',
+      component: SnacksView,
     },
     {
       meta: { requiresAuth: false },
