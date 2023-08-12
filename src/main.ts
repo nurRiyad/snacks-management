@@ -1,8 +1,5 @@
 import './assets/main.css'
 
-// main.ts
-import 'virtual:uno.css'
-
 import { VueFire, VueFireAuth } from 'vuefire'
 
 import { createApp } from 'vue'
