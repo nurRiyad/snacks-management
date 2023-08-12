@@ -3,6 +3,7 @@ import { ref, watch } from 'vue'
 import { storeToRefs } from 'pinia'
 import Vtable from '@/components/VTable.vue'
 import Modal from '@/components/Modal.vue'
+import FirstTime from '@/components/FirstTime.vue'
 import { useSnacksStore } from '@/stores/counter'
 
 const snacksStore = useSnacksStore()
@@ -12,10 +13,11 @@ await snacksStore.getOrders()
 
 const isSnacksEnable = ref(false)
 const showModal = ref(false)
+const showFirstTimeModal = ref(false)
 
 const { loginUser } = storeToRefs(snacksStore)
 
-watch(() => loginUser.value?.snacks_enabled, (n, o) => {
+watch(() => loginUser.value?.snacks_enabled, (n) => {
   if (n)
     isSnacksEnable.value = true
 }, { immediate: true })
@@ -23,6 +25,12 @@ watch(() => loginUser.value?.snacks_enabled, (n, o) => {
 watch(isSnacksEnable, async (n) => {
   await snacksStore.updateSnakesOptions(n)
 })
+
+watch(() => loginUser.value?.id, (n) => {
+  if (!n)
+    showFirstTimeModal.value = true
+  else showFirstTimeModal.value = false
+}, { immediate: true })
 </script>
 
 <template>
@@ -33,7 +41,7 @@ watch(isSnacksEnable, async (n) => {
       </h1>
       <div class="form-control">
         <label class="cursor-pointer label">
-          <input v-model="isSnacksEnable" type="checkbox" class="toggle toggle-primary">
+          <input v-model="isSnacksEnable" :disabled="showFirstTimeModal" type="checkbox" class="toggle toggle-primary">
         </label>
       </div>
     </div>
@@ -52,11 +60,15 @@ watch(isSnacksEnable, async (n) => {
         </div>
         <Modal :show-modal="showModal" @close-modal="showModal = false" />
       </div>
-
       <div v-else class="flex justify-center pt-20">
-        <p class="text-secondary font-bold">
-          Enable Snacks from toggle button to order item
-        </p>
+        <div v-if="showFirstTimeModal">
+          <FirstTime />
+        </div>
+        <div v-else>
+          <p class="text-secondary font-bold">
+            Enable Snacks from toggle button to order item
+          </p>
+        </div>
       </div>
     </div>
   </div>

@@ -2,7 +2,7 @@ import { ref } from 'vue'
 import { defineStore } from 'pinia'
 import { getCurrentUser, useFirestore } from 'vuefire'
 import { collection, doc, getDoc, query } from '@firebase/firestore'
-import { getDocs, updateDoc } from 'firebase/firestore'
+import { getDocs, setDoc, updateDoc } from 'firebase/firestore'
 
 interface Order {
   name: string
@@ -44,6 +44,25 @@ export const useSnacksStore = defineStore('snacks', () => {
       console.log('No such document!')
     }
     isUserDataFetching.value = false
+  }
+
+  async function setUser(username: string, floor: number) {
+    const db = useFirestore()
+    const user = await getCurrentUser()
+
+    const url = `/users/${user?.uid}`
+
+    const docRef = doc(db, url)
+
+    const payload: User = {
+      name: username,
+      floor,
+      id: user?.uid || '',
+      snacks_enabled: false,
+    }
+    await setDoc(docRef, payload, { merge: true })
+
+    await getUser()
   }
 
   async function updateSnakesOptions(payload: boolean) {
@@ -88,5 +107,10 @@ export const useSnacksStore = defineStore('snacks', () => {
     isOrdersDataFetching.value = false
   }
 
-  return { loginUser, getUser, orders, getOrders, updateSnakesOptions }
+  function resetStore() {
+    loginUser.value = undefined
+    orders.value = []
+  }
+
+  return { loginUser, getUser, orders, getOrders, updateSnakesOptions, resetStore, setUser }
 })

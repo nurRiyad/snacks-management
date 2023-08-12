@@ -2,6 +2,7 @@
 import { addDoc, collection } from 'firebase/firestore'
 import { computed, ref, watch } from 'vue'
 import { getCurrentUser, useFirestore } from 'vuefire'
+import { useSnacksStore } from '@/stores/counter'
 
 interface Props {
   showModal: boolean
@@ -12,6 +13,8 @@ const props = withDefaults(defineProps<Props>(), {
 })
 
 const emits = defineEmits(['closeModal'])
+
+const snacksStore = useSnacksStore()
 
 const my_modal_1 = ref<HTMLDialogElement | null>(null)
 const itemAmount = ref(0)
@@ -63,6 +66,8 @@ async function addNedItem() {
         collection(db, url),
         obj,
       )
+
+      snacksStore.getOrders()
 
       itemId.value = ''
       itemAmount.value = 0

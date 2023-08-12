@@ -3,25 +3,27 @@ import { useCurrentUser } from 'vuefire'
 import { getAuth, signOut } from 'firebase/auth'
 import { useRoute, useRouter } from 'vue-router'
 import { computed } from 'vue'
+import { useSnacksStore } from '@/stores/counter'
 
 const user = useCurrentUser()
 const router = useRouter()
 const route = useRoute()
+const snackStore = useSnacksStore()
 
 const isRoot = computed(() => (route.fullPath === '/'))
 
-function onLogoutClick() {
-  const auth = getAuth()
-  signOut(auth)
-    .then(() => {
-      // Sign-out successful.
-      router.push('/')
-    })
-    .catch((error) => {
-      // An error happened.
-      // eslint-disable-next-line no-alert
-      alert(error.message)
-    })
+async function onLogoutClick() {
+  try {
+    const auth = getAuth()
+    await signOut(auth)
+
+    snackStore.resetStore()
+    router.push('/')
+  }
+  catch (error) {
+    // eslint-disable-next-line no-console
+    console.log(error)
+  }
 }
 </script>
 
