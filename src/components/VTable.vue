@@ -1,10 +1,21 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia'
+import { computed } from 'vue'
 import { useSnacksStore } from '@/stores/counter'
 
 const snacksStore = useSnacksStore()
 
 const { orders } = storeToRefs(snacksStore)
+
+const totalAmount = computed(() => {
+  let count = 0
+  orders.value.forEach((order) => {
+    const temp = order.cost * order.amount
+    count += temp
+  })
+
+  return count
+})
 </script>
 
 <template>
@@ -22,7 +33,6 @@ const { orders } = storeToRefs(snacksStore)
         </tr>
       </thead>
       <tbody>
-        <!-- row 1 -->
         <tr v-for="(snacks, idx) in orders" :key="snacks?.id + idx ">
           <th>{{ idx }}</th>
           <td>{{ snacks.name }}</td>
@@ -35,7 +45,21 @@ const { orders } = storeToRefs(snacksStore)
             </button>
           </td>
         </tr>
-        <!-- row 2 -->
+
+        <tr v-if="orders.length !== 0">
+          <td colspan="4" class="text-center">
+            Total Amount
+          </td>
+          <td colspan="4">
+            {{ totalAmount }}
+          </td>
+        </tr>
+
+        <tr v-if="orders.length === 0">
+          <td colspan="6" class="text-center">
+            There is Content Available !
+          </td>
+        </tr>
       </tbody>
     </table>
   </div>
