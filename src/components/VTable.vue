@@ -1,39 +1,42 @@
+<script setup lang="ts">
+import { collection } from 'firebase/firestore'
+import { getCurrentUser, useCollection, useFirestore } from 'vuefire'
+
+const db = useFirestore()
+const user = await getCurrentUser()
+
+const allSnacks = useCollection(collection(db, `/users/${user?.uid}/snacks`))
+</script>
+
 <template>
   <div class="overflow-x-auto border rounded-md mt-5">
     <table class="table table-zebra">
       <!-- head -->
       <thead>
         <tr>
-          <th />
+          <th>Item No</th>
           <th>Name</th>
           <th>Cost</th>
           <th>Amount</th>
-          <th>Amount</th>
-          <th />
+          <th>Total</th>
+          <th>Actions</th>
         </tr>
       </thead>
       <tbody>
         <!-- row 1 -->
-        <tr>
-          <th>1</th>
-          <td>Cy Ganderton</td>
-          <td>Quality Control Specialist</td>
-          <td>Blue</td>
+        <tr v-for="(snacks, idx) in allSnacks" :key="snacks.id">
+          <th>{{ idx }}</th>
+          <td>{{ snacks.name }}</td>
+          <td>{{ snacks.cost }}</td>
+          <td>{{ snacks.amount }}</td>
+          <td>{{ snacks.cost * snacks.amount }}</td>
+          <td>
+            <button class="btn btn-error btn-sm">
+              Remove
+            </button>
+          </td>
         </tr>
         <!-- row 2 -->
-        <tr>
-          <th>2</th>
-          <td>Hart Hagerty</td>
-          <td>Desktop Support Technician</td>
-          <td>Purple</td>
-        </tr>
-        <!-- row 3 -->
-        <tr>
-          <th>3</th>
-          <td>Brice Swyre</td>
-          <td>Tax Accountant</td>
-          <td>Red</td>
-        </tr>
       </tbody>
     </table>
   </div>

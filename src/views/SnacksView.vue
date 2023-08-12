@@ -30,7 +30,12 @@ const showModal = ref(false)
           </button>
         </div>
         <div>
-          <Vtable />
+          <Suspense>
+            <Vtable />
+            <template #fallback>
+              <h1>Loading...</h1>
+            </template>
+          </Suspense>
         </div>
         <Modal :show-modal="showModal" @close-modal="showModal = false" />
       </div>
