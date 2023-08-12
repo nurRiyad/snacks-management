@@ -9,6 +9,7 @@ interface Order {
   id: string
   cost: number
   amount: number
+  uid: string
 }
 
 interface User {
@@ -99,7 +100,7 @@ export const useSnacksStore = defineStore('snacks', () => {
       // doc.data() is never undefined for query doc snapshots
       const data = doc.data() as Order
       if (data)
-        allData.push(data)
+        allData.push({ ...data, uid: doc.id })
     })
 
     orders.value = allData

@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia'
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 import { useSnacksStore } from '@/stores/counter'
+import DeleteModal from '@/components/DeleteModal.vue'
 
 const snacksStore = useSnacksStore()
 
@@ -16,6 +17,13 @@ const totalAmount = computed(() => {
 
   return count
 })
+
+const showModal = ref(false)
+const selectedRowId = ref('')
+async function onRemoveClick(id: string) {
+  selectedRowId.value = id
+  showModal.value = true
+}
 </script>
 
 <template>
@@ -24,7 +32,9 @@ const totalAmount = computed(() => {
       <!-- head -->
       <thead>
         <tr>
-          <th>Item No</th>
+          <th>
+            Item No
+          </th>
           <th>Name</th>
           <th>Cost</th>
           <th>Amount</th>
@@ -34,13 +44,15 @@ const totalAmount = computed(() => {
       </thead>
       <tbody>
         <tr v-for="(snacks, idx) in orders" :key="snacks?.id + idx ">
-          <th>{{ idx }}</th>
+          <td>
+            {{ idx }}
+          </td>
           <td>{{ snacks.name }}</td>
           <td>{{ snacks.cost }}</td>
           <td>{{ snacks.amount }}</td>
           <td>{{ snacks.cost * snacks.amount }}</td>
-          <td>
-            <button class="btn btn-error btn-sm">
+          <td class="w-36">
+            <button class="btn btn-error btn-sm" @click="onRemoveClick(snacks.uid)">
               Remove
             </button>
           </td>
@@ -62,5 +74,6 @@ const totalAmount = computed(() => {
         </tr>
       </tbody>
     </table>
+    <DeleteModal :show-modal="showModal" :uid="selectedRowId" @close-modal="showModal = false" />
   </div>
 </template>
