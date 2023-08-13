@@ -125,14 +125,14 @@ onMounted(() => {
           <span class="pr-2">Sign In With</span>
           <Google class="w-4" />
         </button>
-        <div v-if="sentMail" class="alert alert-info shadow-lg">
-          <div>
+        <div v-if="sentMail" class="alert alert-info shadow-lg flex">
+          <div class="flex space-x-2">
             <Info />
-            <span>Check mailbox for login link</span>
+            <span>Check mailbox for logIn link</span>
           </div>
         </div>
         <div v-if="errorMsg.length > 1" class="alert alert-error shadow-lg">
-          <div>
+          <div class="flex space-x-2">
             <Info />
             <span>{{ errorMsg }}</span>
           </div>
