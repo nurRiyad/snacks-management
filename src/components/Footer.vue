@@ -6,7 +6,7 @@
         Md. Al Asad Nur Riyad <br>Software Engineer @AppsCode
       </p>
       <p>
-        <a class="underline" href="https://github.com/nurRiyad/vue-todos">Source Code</a>
+        <a class="underline" href="https://github.com/nurRiyad/ac-snacks">Source Code</a>
         - No Right Reserved
       </p>
     </div>
