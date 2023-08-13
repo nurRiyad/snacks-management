@@ -20,16 +20,16 @@ const router = createRouter({
       component: SnacksView,
     },
     {
-      meta: { requiresAuth: false },
-      path: '/signin',
-      name: 'signin',
-      component: SigninView,
-    },
-    {
       meta: { requiresAuth: true },
       path: '/admin',
       name: 'admin',
       component: AdminView,
+    },
+    {
+      meta: { requiresAuth: false },
+      path: '/signin',
+      name: 'signin',
+      component: SigninView,
     },
     {
       path: '/about',

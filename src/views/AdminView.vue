@@ -3,7 +3,7 @@ import AdminDashboard from '@/components/AdminDashboard.vue'
 </script>
 
 <template>
-  <div class="container max-w-7xl h-full mx-auto">
+  <div class="container max-w-5xl h-full mx-auto">
     <Suspense>
       <AdminDashboard />
       <template #fallback>

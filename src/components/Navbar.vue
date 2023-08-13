@@ -11,6 +11,8 @@ const route = useRoute()
 const snackStore = useSnacksStore()
 
 const isRoot = computed(() => (route.fullPath === '/'))
+const isSnacks = computed(() => route.fullPath === '/snacks')
+const isAdmin = computed(() => route.fullPath === '/admin')
 
 async function onLogoutClick() {
   try {
@@ -29,7 +31,7 @@ async function onLogoutClick() {
 
 <template>
   <header class="border-b">
-    <div class="navbar bg-base-100 mx-auto max-w-7xl">
+    <div class="navbar bg-base-100 mx-auto max-w-5xl">
       <div class="flex-1">
         <RouterLink
           to="/"
@@ -42,9 +44,17 @@ async function onLogoutClick() {
           v-if="user"
           to="/snacks"
           class="btn btn-ghost normal-case text-xl"
-          :class="{ 'text-primary': !isRoot }"
+          :class="{ 'text-primary': isSnacks }"
         >
           Snacks
+        </RouterLink>
+        <RouterLink
+          v-if="user"
+          to="/admin"
+          class="btn btn-ghost normal-case text-xl"
+          :class="{ 'text-primary': isAdmin }"
+        >
+          Dashboard
         </RouterLink>
       </div>
       <div class="flex-none">

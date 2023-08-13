@@ -3,7 +3,7 @@ import Hero from '@/components/Hero.vue'
 </script>
 
 <template>
-  <div class="mx-auto flex-col space-y-2 max-w-7xl flex justify-center items-center h-full">
+  <div class="mx-auto flex-col space-y-2 max-w-5xl flex justify-center items-center h-full">
     <h1 class="text-2xl py-8 ">
       Go to <RouterLink to="/snacks" class="gray font-mono text-blue-800 mx-3">
         /snacks

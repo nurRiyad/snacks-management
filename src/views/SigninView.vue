@@ -93,7 +93,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="container max-w-7xl h-full mx-auto">
+  <div class="container max-w-5xl h-full mx-auto">
     <div class="flex justify-center h-full items-center">
       <div class="flex flex-col space-y-4 p-10 m-5 rounded-lg shadow-md bg-base-100">
         <div>
