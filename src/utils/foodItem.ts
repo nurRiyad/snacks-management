@@ -8,6 +8,7 @@ export const foodItems = [
     name: 'Buter Dal',
     id: 'buterdal',
     cost: 20,
+
   },
   {
     name: 'Sobji',

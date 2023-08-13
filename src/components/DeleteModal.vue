@@ -68,11 +68,11 @@ async function deleteItem() {
         </div>
         <div class="modal-action">
           <!-- if there is a button in form, it will close the modal -->
-          <button class="btn btn-error" @click.prevent="$emit('closeModal')">
+          <button class="btn btn-primary" @click.prevent="$emit('closeModal')">
             Close
           </button>
-          <button class="btn btn-primary" @click.prevent="deleteItem">
-            Add
+          <button class="btn btn-error" @click.prevent="deleteItem">
+            Remove
           </button>
         </div>
       </form>
