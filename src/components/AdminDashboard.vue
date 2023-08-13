@@ -21,7 +21,7 @@ function onPrintClick() {
       <AdminTable :floor="3" />
     </div>
     <div class="flex justify-center print:hidden">
-      <button class="btn btn-primary" @click="onPrintClick">
+      <button class="btn btn-primary m-3" @click="onPrintClick">
         Print The Doc
       </button>
     </div>

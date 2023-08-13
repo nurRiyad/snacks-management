@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import UserDashboard from '@/components/UserDashboard.vue'
+import Loader from '@/components/Loader.vue'
 </script>
 
 <template>
@@ -7,7 +8,7 @@ import UserDashboard from '@/components/UserDashboard.vue'
     <Suspense>
       <UserDashboard />
       <template #fallback>
-        Loading ...
+        <Loader />
       </template>
     </Suspense>
   </div>

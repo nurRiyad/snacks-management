@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import AdminDashboard from '@/components/AdminDashboard.vue'
+import Loader from '@/components/Loader.vue'
 </script>
 
 <template>
@@ -8,7 +9,7 @@ import AdminDashboard from '@/components/AdminDashboard.vue'
       <AdminDashboard />
       <template #fallback>
         <div>
-          <p>Loading ... </p>
+          <Loader />
         </div>
       </template>
     </Suspense>
