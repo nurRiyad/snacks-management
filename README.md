@@ -1,6 +1,6 @@
-# ac-snacks
+# Ac-snacks
 
-This template should help get you started developing with Vue 3 in Vite.
+A food ordering web app. Where user can login & add their preferred food and admin can order all the food of all users at once
 
 ## Recommended IDE Setup
 
