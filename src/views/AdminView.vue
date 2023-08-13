@@ -1,5 +1,16 @@
+<script setup lang="ts">
+import AdminDashboard from '@/components/AdminDashboard.vue'
+</script>
+
 <template>
-  <div>
-    <h1>Admin Vie</h1>
+  <div class="container max-w-7xl h-full mx-auto">
+    <Suspense>
+      <AdminDashboard />
+      <template #fallback>
+        <div>
+          <p>Loading ... </p>
+        </div>
+      </template>
+    </Suspense>
   </div>
 </template>

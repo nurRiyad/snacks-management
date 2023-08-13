@@ -3,6 +3,7 @@ import { addDoc, collection } from 'firebase/firestore'
 import { computed, ref, watch } from 'vue'
 import { getCurrentUser, useFirestore } from 'vuefire'
 import { useSnacksStore } from '@/stores/counter'
+import { foodItems } from '@/utils/foodItem'
 
 interface Props {
   showModal: boolean
@@ -20,19 +21,6 @@ const my_modal_1 = ref<HTMLDialogElement | null>(null)
 const itemAmount = ref(0)
 const itemId = ref('')
 const isAdding = ref(false)
-
-const foodItems = [
-  {
-    name: 'Mug Dal',
-    id: 'mugdal',
-    cost: 20,
-  },
-  {
-    name: 'Ruti',
-    id: 'ruti',
-    cost: 20,
-  },
-]
 
 watch(() => props.showModal, (n) => {
   if (n) {
