@@ -24,7 +24,7 @@ const showProcessing = ref(false)
 
 // For Local Dev -> url: 'http://localhost:5173/signin',
 const actionCodeSettings = {
-  url: 'https://vuefire-todos.netlify.app/signin',
+  url: 'https://ac-snacks.vercel.app/snacks',
   handleCodeInApp: true,
 }
 
