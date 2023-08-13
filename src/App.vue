@@ -8,11 +8,11 @@ const [parent] = useAutoAnimate()
 
 <template>
   <div class="gd-container">
-    <Navbar />
+    <Navbar class="print:hidden" />
     <main ref="parent">
       <RouterView />
     </main>
-    <Footer />
+    <Footer class="print:hidden" />
   </div>
 </template>
 

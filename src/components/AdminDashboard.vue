@@ -1,19 +1,33 @@
 <script setup lang="ts">
+import { useCurrentUser } from 'vuefire'
 import AdminTable from './AdminTable.vue'
 import { useSnacksStore } from '@/stores/counter'
 
 const snacksStore = useSnacksStore()
 
 await snacksStore.getSnacksEnableUser()
+
+const user = useCurrentUser()
+
+function onPrintClick() {
+  window.print()
+}
 </script>
 
 <template>
-  <div class="space-y-5 mb-10 flex flex-col">
-    <AdminTable :floor="1" />
-    <AdminTable :floor="3" />
+  <div>
+    <div class="mb-10 flex justify-center">
+      <AdminTable :floor="1" />
+      <AdminTable :floor="3" />
+    </div>
+    <div class="flex justify-center print:hidden">
+      <button class="btn btn-primary" @click="onPrintClick">
+        Print The Doc
+      </button>
+    </div>
 
-    <button class="mx-auto btn btn-primary">
-      Print
-    </button>
+    <p class="hidden print:block">
+      Ordered by {{ user?.displayName || user?.email }}
+    </p>
   </div>
 </template>

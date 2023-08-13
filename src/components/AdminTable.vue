@@ -35,7 +35,7 @@ function calculateTotalCost(foodId: string, cost: number) {
   return ttlAmount * cost
 }
 
-function filteredOrdersForFloor() {
+function generatedOrders() {
   return foodItems.map((food) => {
     return {
       name: food.name,
@@ -44,11 +44,19 @@ function filteredOrdersForFloor() {
       amount: calculateTotalAmount(food.id),
       total: calculateTotalCost(food.id, food.cost),
     }
-  })
+  }) || []
+}
+
+function filteredOrders() {
+  const data = generatedOrders()
+
+  return data.filter((odr) => {
+    return odr.total !== 0
+  }) || []
 }
 
 function overallAmount() {
-  const allData = filteredOrdersForFloor()
+  const allData = filteredOrders()
   let cost = 0
 
   allData.forEach((data) => {
@@ -60,16 +68,16 @@ function overallAmount() {
 </script>
 
 <template>
-  <div>
-    <h1 class="text-center text-xl text-primary font-bold font-sans pt-10 ">
+  <div class="m-5">
+    <h1 class="text-center text-xl text-primary font-bold font-sans pb-5">
       Food Item For Floor:  <span class="text-fuchsia-400">{{ floor }}</span>
     </h1>
-    <div class="overflow-x-auto border rounded-md mt-5">
+    <div class="overflow-x-auto border rounded-md">
       <table class="table table-zebra">
         <!-- head -->
         <thead>
           <tr>
-            <th>Item No</th>
+            <th>No</th>
             <th>Name</th>
             <th>Cost</th>
             <th>Amount</th>
@@ -77,7 +85,7 @@ function overallAmount() {
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(snacks, idx) in filteredOrdersForFloor()" :key="snacks?.id + idx ">
+          <tr v-for="(snacks, idx) in filteredOrders()" :key="snacks?.id + idx ">
             <td>{{ idx }}</td>
             <td>{{ snacks.name }}</td>
             <td>{{ snacks.cost }}</td>
@@ -85,7 +93,7 @@ function overallAmount() {
             <td>{{ snacks.total }}</td>
           </tr>
 
-          <tr v-if="filteredOrdersForFloor().length !== 0">
+          <tr v-if="filteredOrders().length !== 0">
             <td colspan="4" class="text-center">
               Total Amount
             </td>
@@ -94,7 +102,7 @@ function overallAmount() {
             </td>
           </tr>
 
-          <tr v-if="filteredOrdersForFloor().length === 0">
+          <tr v-if="filteredOrders().length === 0">
             <td colspan="6" class="text-center">
               There is Content Available !
             </td>
