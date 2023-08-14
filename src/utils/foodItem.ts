@@ -31,14 +31,14 @@ export const foodItems = [
     cost: 20,
   },
   {
-    name: 'Dim Poc',
+    name: 'Dim Poach ',
     id: 'dimpoc',
-    cost: 20,
+    cost: 25,
   },
   {
     name: 'Dim Vaji',
     id: 'dimvaji',
-    cost: 20,
+    cost: 25,
   },
 
 ]
