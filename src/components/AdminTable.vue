@@ -70,7 +70,7 @@ function overallAmount() {
 <template>
   <div class="m-5">
     <h1 class="text-center text-xl text-primary font-bold font-sans pb-5">
-      Food Item For Floor:  <span class="text-fuchsia-400">{{ floor }}</span>
+      Floor:  <span class="text-bold">{{ floor }}</span>
     </h1>
     <div class="overflow-x-auto border rounded-md">
       <table class="table table-zebra">
