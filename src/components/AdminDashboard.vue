@@ -7,6 +7,7 @@ import { useSnacksStore } from '@/stores/counter'
 const snacksStore = useSnacksStore()
 
 await snacksStore.getSnacksEnableUser()
+await snacksStore.getAllUser()
 
 const user = useCurrentUser()
 

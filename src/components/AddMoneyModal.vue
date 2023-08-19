@@ -34,6 +34,17 @@ watch(() => props.showModal, (n) => {
   }
 }, { immediate: true })
 
+watch(itemId, (n) => {
+  const selectedUser = snacksEnabledUsers.value?.find((usr) => {
+    if (usr.id === n)
+      return true
+    else return false
+  })
+
+  if (selectedUser)
+    itemAmount.value = selectedUser?.balance || 0
+})
+
 async function addMoney() {
   if (itemId.value) {
     try {
@@ -52,6 +63,7 @@ async function addMoney() {
 
       await snacksStore.getUser()
       await snacksStore.getSnacksEnableUser()
+      await snacksStore.getAllUser()
 
       itemId.value = ''
       itemAmount.value = 0

@@ -3,12 +3,15 @@ import { useCurrentUser } from 'vuefire'
 import { getAuth, signOut } from 'firebase/auth'
 import { useRoute, useRouter } from 'vue-router'
 import { computed } from 'vue'
+import { storeToRefs } from 'pinia'
 import { useSnacksStore } from '@/stores/counter'
 
 const user = useCurrentUser()
 const router = useRouter()
 const route = useRoute()
 const snackStore = useSnacksStore()
+
+const { loginUser } = storeToRefs(snackStore)
 
 const isRoot = computed(() => (route.fullPath === '/'))
 const isSnacks = computed(() => route.fullPath === '/snacks')
@@ -49,7 +52,7 @@ async function onLogoutClick() {
           Snacks
         </RouterLink>
         <RouterLink
-          v-if="user"
+          v-if="loginUser?.isAdmin"
           to="/admin"
           class="btn btn-ghost normal-case text-xl"
           :class="{ 'text-primary': isAdmin }"
@@ -73,7 +76,7 @@ async function onLogoutClick() {
                 Profile
               </RouterLink>
             </li>
-            <li>
+            <li v-if="loginUser?.isAdmin">
               <RouterLink to="/admin">
                 Admin
               </RouterLink>

@@ -17,13 +17,15 @@ interface User {
   id: string
   snacks_enabled: boolean
   floor: number
-  orders?: Array<Order>
   balance: number
+  isAdmin?: boolean
+  orders?: Array<Order>
 }
 
 export const useSnacksStore = defineStore('snacks', () => {
   const loginUser = ref<User>()
   const snacksEnabledUsers = ref<Array<User>>([])
+  const allUsers = ref<Array<User>>([])
   const orders = ref<Array<Order>>([])
 
   const isUserDataFetching = ref(false)
@@ -124,15 +126,15 @@ export const useSnacksStore = defineStore('snacks', () => {
     const q = query(collection(db, url1), where('snacks_enabled', '==', true))
 
     const querySnapshot = await getDocs(q)
-    const allUsers: Array<User> = []
+    const allSnacksEnableUser: Array<User> = []
     querySnapshot.forEach((doc) => {
       // doc.data() is never undefined for query doc snapshots
       const data = doc.data() as User
       if (data)
-        allUsers.push({ ...data })
+        allSnacksEnableUser.push({ ...data })
     })
 
-    await Promise.all(allUsers.map(async (usr) => {
+    await Promise.all(allSnacksEnableUser.map(async (usr) => {
       const url2 = `/users/${usr.id}/snacks`
 
       const qy = query(collection(db, url2))
@@ -149,7 +151,30 @@ export const useSnacksStore = defineStore('snacks', () => {
       usr.orders = allOrders
     }))
 
-    snacksEnabledUsers.value = allUsers
+    snacksEnabledUsers.value = allSnacksEnableUser
+
+    isOrdersDataFetching.value = false
+  }
+
+  async function getAllUser() {
+    isOrdersDataFetching.value = true
+
+    const db = useFirestore()
+    // const user = await getCurrentUser()
+
+    const url1 = '/users'
+
+    const q = query(collection(db, url1))
+
+    const querySnapshot = await getDocs(q)
+    const allSnacksEnableUser: Array<User> = []
+    querySnapshot.forEach((doc) => {
+      // doc.data() is never undefined for query doc snapshots
+      const data = doc.data() as User
+      if (data)
+        allSnacksEnableUser.push({ ...data })
+    })
+    allUsers.value = allSnacksEnableUser
 
     isOrdersDataFetching.value = false
   }
@@ -162,10 +187,12 @@ export const useSnacksStore = defineStore('snacks', () => {
   return {
     orders,
     loginUser,
+    allUsers,
     snacksEnabledUsers,
 
     getUser,
     setUser,
+    getAllUser,
     getOrders,
     resetStore,
     updateSnakesOptions,

@@ -6,12 +6,12 @@ import AddMoneyModal from '@/components/AddMoneyModal.vue'
 
 const snacksStore = useSnacksStore()
 
-const { snacksEnabledUsers } = storeToRefs(snacksStore)
+const { allUsers } = storeToRefs(snacksStore)
 
 const showModal = ref(false)
 
 const totalBalance = computed(() => {
-  return snacksEnabledUsers.value.reduce((pre, curr) => {
+  return allUsers.value.reduce((pre, curr) => {
     return pre += curr.balance || 0
   }, 0) || 0
 })
