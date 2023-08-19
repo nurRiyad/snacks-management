@@ -35,16 +35,35 @@ watch(() => loginUser.value?.id, (n) => {
 
 <template>
   <div>
-    <div class="flex justify-between pt-8  border-b border-primary">
-      <h1 class="text-primary text-3xl font-bold">
-        Enable Snacks
-      </h1>
-      <div class="form-control">
-        <label class="cursor-pointer label">
-          <input v-model="isSnacksEnable" :disabled="showFirstTimeModal" type="checkbox" class="toggle toggle-primary">
-        </label>
+    <div class="flex justify-around mt-4">
+      <div class="card w-96 bg-base-200 shadow-xl p-5">
+        <div class="flex space-x-5 items-center justify-between">
+          <h2 v-if="isSnacksEnable" class="card-title">
+            Disable Snacks
+          </h2>
+          <h2 v-else class="card-title">
+            Enable Snacks
+          </h2>
+          <div class="form-control">
+            <label class="cursor-pointer label">
+              <input v-model="isSnacksEnable" :disabled="showFirstTimeModal" type="checkbox" class="toggle toggle-primary">
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="card w-96 bg-base-200 shadow-xl p-5 justify-center">
+        <div class="flex space-x-5 items-center justify-between">
+          <h2 class="card-title">
+            Balance
+          </h2>
+
+          <div class="form-control">
+            <p>{{ loginUser?.balance || '--' }} Tk</p>
+          </div>
+        </div>
       </div>
     </div>
+    <div class="divider" />
     <div>
       <div v-if="isSnacksEnable">
         <div class="flex justify-between py-4">
