@@ -72,7 +72,7 @@ async function onLogoutClick() {
           </label>
           <ul tabindex="0" class="menu menu-sm dropdown-content mt-2 z-[1] p-2 shadow bg-base-100 rounded-box w-36 space-y-1">
             <li>
-              <RouterLink to="/about" class="justify-between">
+              <RouterLink to="/aboutme" class="justify-between">
                 Profile
               </RouterLink>
             </li>
