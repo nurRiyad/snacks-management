@@ -18,6 +18,7 @@ interface User {
   snacks_enabled: boolean
   floor: number
   orders?: Array<Order>
+  balance: number
 }
 
 export const useSnacksStore = defineStore('snacks', () => {
@@ -63,6 +64,7 @@ export const useSnacksStore = defineStore('snacks', () => {
       floor,
       id: user?.uid || '',
       snacks_enabled: false,
+      balance: 0,
     }
     await setDoc(docRef, payload, { merge: true })
 
