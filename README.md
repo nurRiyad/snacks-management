@@ -1,6 +1,22 @@
-# Ac-snacks
+# Snacks Management
 
 A food ordering web app. Where user can login & add their preferred food and admin can order all the food of all users at once
+
+## Demo
+
+https://ac-snacks.vercel.app/
+
+> Hosted on [Vercel](https://vercel.com/): 
+
+
+### Built with
+
+<p align="center">
+    <img width="200" src="./src/assets/Logo.png">
+</p>
+
+Vuefire Todos built with [Vue3](https://vuejs.org), [Vuefire](https://vuefire.vuejs.org/) [Vue-Router](https://router.vuejs.org/) & [Tailwind](https://tailwindcss.com/)
+
 
 ## Recommended IDE Setup
 
