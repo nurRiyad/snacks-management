@@ -20,12 +20,12 @@ const totalBalance = computed(() => {
 <template>
   <div>
     <div class="flex justify-around mt-4">
-      <div class="card w-96 bg-base-200 shadow-xl p-5">
+      <div class="card w-96 bg-base-200  p-5">
         <button class="btn btn-primary" @click="showModal = !showModal">
           Add Money
         </button>
       </div>
-      <div class="card w-96 bg-base-200 shadow-xl p-5 justify-center">
+      <div class="card w-96 bg-base-200  p-5 justify-center">
         <div class="flex space-x-5 items-center justify-between">
           <h2 class="card-title">
             Total Amount
