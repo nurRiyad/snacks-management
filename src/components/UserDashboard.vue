@@ -58,7 +58,7 @@ watch(() => loginUser.value?.id, (n) => {
           </h2>
 
           <div class="form-control">
-            <p>{{ loginUser?.balance || '--' }} Tk</p>
+            <p>{{ loginUser?.balance || '0' }} Tk</p>
           </div>
         </div>
       </div>
