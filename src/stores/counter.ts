@@ -37,7 +37,7 @@ export const useSnacksStore = defineStore('snacks', () => {
     const db = useFirestore()
     const user = await getCurrentUser()
 
-    const url = `/users/${user?.uid}`
+    const url = `/snacks-users/${user?.uid}`
 
     const docRef = doc(db, url)
     const docSnap = await getDoc(docRef)
@@ -57,7 +57,7 @@ export const useSnacksStore = defineStore('snacks', () => {
     const db = useFirestore()
     const user = await getCurrentUser()
 
-    const url = `/users/${user?.uid}`
+    const url = `/snacks-users/${user?.uid}`
 
     const docRef = doc(db, url)
 
@@ -79,7 +79,7 @@ export const useSnacksStore = defineStore('snacks', () => {
     const db = useFirestore()
     const user = await getCurrentUser()
 
-    const url = `/users/${user?.uid}`
+    const url = `/snacks-users/${user?.uid}`
 
     const docRef = doc(db, url)
 
@@ -97,7 +97,7 @@ export const useSnacksStore = defineStore('snacks', () => {
     const db = useFirestore()
     const user = await getCurrentUser()
 
-    const url = `/users/${user?.uid}/snacks`
+    const url = `/snacks-users/${user?.uid}/snacks`
 
     const q = query(collection(db, url))
 
@@ -121,7 +121,7 @@ export const useSnacksStore = defineStore('snacks', () => {
     const db = useFirestore()
     // const user = await getCurrentUser()
 
-    const url1 = '/users'
+    const url1 = '/snacks-users'
 
     const q = query(collection(db, url1), where('snacks_enabled', '==', true))
 
@@ -135,7 +135,7 @@ export const useSnacksStore = defineStore('snacks', () => {
     })
 
     await Promise.all(allSnacksEnableUser.map(async (usr) => {
-      const url2 = `/users/${usr.id}/snacks`
+      const url2 = `/snacks-users/${usr.id}/snacks`
 
       const qy = query(collection(db, url2))
 
@@ -162,7 +162,7 @@ export const useSnacksStore = defineStore('snacks', () => {
     const db = useFirestore()
     // const user = await getCurrentUser()
 
-    const url1 = '/users'
+    const url1 = '/snacks-users'
 
     const q = query(collection(db, url1))
 

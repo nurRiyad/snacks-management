@@ -24,7 +24,7 @@ function onPrintClick() {
 
     <div class="mb-10 flex justify-center">
       <AdminTable :floor="1" />
-      <AdminTable :floor="3" />
+      <AdminTable :floor="5" />
     </div>
     <div class="flex justify-center print:hidden">
       <button class="btn btn-primary m-3" @click="onPrintClick">

@@ -104,7 +104,7 @@ function overallAmount() {
 
           <tr v-if="filteredOrders().length === 0">
             <td colspan="6" class="text-center">
-              There is Content Available !
+              No Content Available !
             </td>
           </tr>
         </tbody>

@@ -30,11 +30,11 @@ async function onSave() {
         <span class="label-text">Floor</span>
       </label>
       <select v-model="floor" class="select select-bordered">
-        <option value="1">
+        <option :value="1">
           First
         </option>
-        <option value="3">
-          Third
+        <option :value="5">
+          Fifth
         </option>
       </select>
     </div>

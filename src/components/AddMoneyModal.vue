@@ -52,7 +52,7 @@ async function addMoney() {
 
       const db = useFirestore()
 
-      const url = `/users/${itemId.value}`
+      const url = `/snacks-users/${itemId.value}`
       const docRef = doc(db, url)
 
       const payload = {

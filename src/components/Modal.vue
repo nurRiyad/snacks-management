@@ -48,7 +48,7 @@ async function addNedItem() {
         cost: selectedItem.value.cost,
         amount: itemAmount.value,
       }
-      const url = `users/${user?.uid}/snacks`
+      const url = `snacks-users/${user?.uid}/snacks`
 
       await addDoc(
         collection(db, url),

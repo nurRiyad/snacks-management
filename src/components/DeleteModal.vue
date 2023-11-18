@@ -38,7 +38,7 @@ async function deleteItem() {
     const user = await getCurrentUser()
     const db = useFirestore()
 
-    const url = `users/${user?.uid}/snacks/${props.uid}`
+    const url = `snacks-users/${user?.uid}/snacks/${props.uid}`
 
     await deleteDoc(doc(db, url))
 
