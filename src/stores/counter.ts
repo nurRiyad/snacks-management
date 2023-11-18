@@ -4,7 +4,7 @@ import { getCurrentUser, useFirestore } from 'vuefire'
 import { collection, doc, getDoc, query } from '@firebase/firestore'
 import { getDocs, setDoc, updateDoc, where } from 'firebase/firestore'
 
-interface Order {
+export interface Order {
   name: string
   id: string
   cost: number
@@ -12,7 +12,7 @@ interface Order {
   uid: string
 }
 
-interface User {
+export interface User {
   name: string
   id: string
   snacks_enabled: boolean
