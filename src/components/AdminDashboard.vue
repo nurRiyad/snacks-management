@@ -89,6 +89,7 @@ async function onOrderAndPrintClick() {
     </div>
     <ConfirmModal
       :show-modal="showModal"
+      :is-loading="isLoading"
       @close-modal="showModal = false"
       @confirm-modal="onOrderAndPrintClick"
     />
