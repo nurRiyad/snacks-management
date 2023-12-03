@@ -5,20 +5,20 @@ import { storeToRefs } from 'pinia'
 import { doc, updateDoc } from 'firebase/firestore'
 import { useSnacksStore } from '@/stores/counter'
 
-interface Allitem {
-    name: string;
-    id: string;
-    snacks_enabled: boolean;
-    floor: number;
-    balance: number;
-    isAdmin?: boolean | undefined;
-    orders?: {
-        name: string;
-        id: string;
-        cost: number;
-        amount: number;
-        uid: string;
-    }[] | undefined;
+interface AllItems {
+  name: string
+  id: string
+  snacks_enabled: boolean
+  floor: number
+  balance: number
+  isAdmin?: boolean | undefined
+  orders?: {
+    name: string
+    id: string
+    cost: number
+    amount: number
+    uid: string
+  }[] | undefined
 }
 interface Props {
   showModal: boolean
@@ -48,15 +48,13 @@ watch(() => props.showModal, (n) => {
   }
 }, { immediate: true })
 
-async function updateSnacksEnabled(item: Allitem)
-{
-    try{
-        const db = useFirestore()
+async function updateSnacksEnabled(item: AllItems) {
+  try {
+    const db = useFirestore()
 
     const url = `/snacks-users/${item.id}`
 
     const docRef = doc(db, url)
-
 
     await updateDoc(docRef, {
       snacks_enabled: item.snacks_enabled,
@@ -64,10 +62,10 @@ async function updateSnacksEnabled(item: Allitem)
     await snacksStore.getUser()
     await snacksStore.getSnacksEnableUser()
     await snacksStore.getAllUser()
-    } catch (error) {
-      console.log(error)
-    }
-
+  }
+  catch (error) {
+    console.error(error)
+  }
 }
 </script>
 
@@ -75,16 +73,18 @@ async function updateSnacksEnabled(item: Allitem)
   <div @keydown.esc="$emit('closeModal')">
     <dialog id="my_modal_3" ref="my_modal_3" class="modal">
       <form method="dialog" class="modal-box">
-        <h3 class="font-bold text-xl py-3">
+        <h3 class="font-bold text-xl py-3 border-b mb-4">
           Enable or Disable order
         </h3>
         <div class="flex space-x-3">
-          <div>
-            <div class="form-control min-w-[300px] w-full max-w-xs">
-                <div v-for="item in allUsers" :key="item.id" class="flex items-center space-x-2 mb-4">
-                    <input type="checkbox" v-model="item.snacks_enabled" class="toggle toggle-primary" @change="updateSnacksEnabled(item)">
-                    <div style="font-family: 'Georgia', serif; font-size: 18px; font-weight: bold;">{{ item.name }}</div>
-                </div>
+          <div class="form-control w-full">
+            <div class="grid grid-cols-2">
+              <div v-for="item in allUsers" :key="item.id" class="flex space-x-2 mb-4">
+                <input v-model="item.snacks_enabled" type="checkbox" class="toggle toggle-primary" @change="updateSnacksEnabled(item)">
+                <p class="font-semibold">
+                  {{ item.name }}
+                </p>
+              </div>
             </div>
           </div>
         </div>
