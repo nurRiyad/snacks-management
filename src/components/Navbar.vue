@@ -30,6 +30,18 @@ async function onLogoutClick() {
     console.log(error)
   }
 }
+
+function formatDate(dateString: string): string {
+  const currentDate = new Date(dateString)
+
+  const options: Intl.DateTimeFormatOptions = {
+    weekday: 'long',
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  }
+  return currentDate.toLocaleDateString('en-US', options)
+}
 </script>
 
 <template>
@@ -61,6 +73,16 @@ async function onLogoutClick() {
         </RouterLink>
       </div>
       <div class="flex-none">
+        <div v-if="route.fullPath.includes('/snacks')">
+          <p class="order-text">
+            Last Ordered:
+          </p> <p v-if="loginUser?.lastOrdered" class="date-text">
+            {{ formatDate(loginUser?.lastOrdered) }}
+          </p>
+          <p v-else class="date-text">
+            Never Ordered
+          </p>
+        </div>
         <RouterLink v-if="!user" to="/signin" class="btn btn-primary">
           SignIn
         </RouterLink>
@@ -90,3 +112,16 @@ async function onLogoutClick() {
     </div>
   </header>
 </template>
+
+<style scoped>
+.date-text {
+  margin-right: 10px;
+  font-family:  sans-serif;
+  font-size: 15px;
+  color: #4A07DA;
+}
+.order-text{
+  margin-right: 5px;
+  font-size: 15px;
+}
+</style>
