@@ -43,6 +43,7 @@ async function updateUserBalance(user: User) {
   const payload = {
     name: user.name,
     balance: user.balance - orderAmount,
+    lastOrdered: new Date().toISOString(),
   }
   await setDoc(docRef, payload, { merge: true })
 }
@@ -83,9 +84,14 @@ async function onOrderAndPrintClick() {
       <button :disabled="isLoading" class="btn btn-primary m-3" @click="onOnlyPrintClick">
         Only Print
       </button>
-      <button class="btn btn-primary m-3" :class="{ loading: isLoading }" @click="showModal = !showModal">
+      <button class="btn btn-primary bg-red-700 m-3" :class="{ loading: isLoading }" @click="showModal = !showModal">
         Order & Print
       </button>
+      <router-link to="/balance">
+        <button :disabled="isLoading" class="btn btn-primary m-3">
+          Print Balance Sheet
+        </button>
+      </router-link>
     </div>
     <ConfirmModal
       :show-modal="showModal"

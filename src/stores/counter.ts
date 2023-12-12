@@ -20,6 +20,7 @@ export interface User {
   balance: number
   isAdmin?: boolean
   orders?: Array<Order>
+  lastOrdered?: string
 }
 
 export const useSnacksStore = defineStore('snacks', () => {

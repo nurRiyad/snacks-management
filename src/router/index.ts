@@ -5,6 +5,7 @@ import SigninView from '@/views/SigninView.vue'
 import SnacksView from '@/views/SnacksView.vue'
 import AdminView from '@/views/AdminView.vue'
 import NotFound from '@/views/NotFound.vue'
+import MoneyTable from '@/views/MoneyTable.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -25,6 +26,11 @@ const router = createRouter({
       path: '/admin',
       name: 'admin',
       component: AdminView,
+    },
+    {
+      path: '/balance',
+      name: 'balance',
+      component: MoneyTable,
     },
     {
       meta: { requiresAuth: false },
