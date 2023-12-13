@@ -68,7 +68,7 @@ watch(() => loginUser.value?.id, (n) => {
       <div v-if="isSnacksEnable">
         <div class="flex justify-between py-4">
           <h1 class="text-xl font-semibold">
-            Odored Snacks List
+            Ordered Snacks List
           </h1>
           <button class="btn btn-primary btn-sm" @click="showModal = !showModal">
             Add New Item
