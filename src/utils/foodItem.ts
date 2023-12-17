@@ -52,12 +52,12 @@ export const foodItems = [
     name: 'Kolija Bhuna',
     bnName: 'কলিজা ভুনা',
     id: 'kolija',
-    cost: 140,
+    cost: 120,
   },
   {
     name: 'Khichuri with beaf',
     bnName: 'খিচুরি গরুর মাংসের ',
     id: 'khicuri',
-    cost: 140,
+    cost: 120,
   },
 ]

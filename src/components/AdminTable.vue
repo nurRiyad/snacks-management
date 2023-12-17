@@ -20,7 +20,7 @@ function calculateTotalAmount(foodId: string) {
   snacksEnabledUsers.value.forEach((usr) => {
     if (usr.floor === props.floor) {
       usr.orders?.forEach((ord) => {
-        if (ord.id === foodId)
+        if (ord.id === foodId && ord.is_item_enabled)
           count += ord.amount
       })
     }
@@ -49,7 +49,6 @@ function generatedOrders() {
 
 function filteredOrders() {
   const data = generatedOrders()
-
   return data.filter((odr) => {
     return odr.total !== 0
   }) || []

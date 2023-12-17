@@ -2,15 +2,17 @@
 import { addDoc, collection } from 'firebase/firestore'
 import { computed, ref, watch } from 'vue'
 import { getCurrentUser, useFirestore } from 'vuefire'
-import { useSnacksStore } from '@/stores/counter'
+import { type User, useSnacksStore } from '@/stores/counter'
 import { foodItems } from '@/utils/foodItem'
 
 interface Props {
   showModal: boolean
+  updatedUser?: User
 }
 
 const props = withDefaults(defineProps<Props>(), {
   showModal: false,
+  updatedUser: undefined,
 })
 
 const emits = defineEmits(['closeModal'])
@@ -38,7 +40,6 @@ async function addNedItem() {
   if (selectedItem.value) {
     try {
       isAdding.value = true
-
       const user = await getCurrentUser()
       const db = useFirestore()
 
@@ -47,9 +48,13 @@ async function addNedItem() {
         id: selectedItem.value.id,
         cost: selectedItem.value.cost,
         amount: itemAmount.value,
+        is_item_enabled: true,
       }
-      const url = `snacks-users/${user?.uid}/snacks`
-
+      let url
+      if (props.updatedUser === undefined)
+        url = `snacks-users/${user?.uid}/snacks`
+      else
+        url = `snacks-users/${props.updatedUser.id}/snacks`
       await addDoc(
         collection(db, url),
         obj,
