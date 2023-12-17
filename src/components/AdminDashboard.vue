@@ -26,7 +26,7 @@ function onOnlyPrintClick() {
 
 function orderAmountOfUser(orders: Array<Order>) {
   let sum = 0
-  orders.forEach(order => sum += (order.amount * order.cost))
+  orders.forEach(order => sum += order.is_item_enabled ? (order.amount * order.cost) : 0)
   return sum
 }
 

@@ -12,7 +12,8 @@ const totalAmount = computed(() => {
   let count = 0
   orders.value.forEach((order) => {
     const temp = order.cost * order.amount
-    count += temp
+    if (order.is_item_enabled)
+      count += temp
   })
 
   return count
@@ -24,6 +25,13 @@ async function onRemoveClick(id: string) {
   selectedRowId.value = id
   showModal.value = true
 }
+
+function updateList(uid: string, is_item_enabled: boolean) {
+  snacksStore.updateOrderEnabledStatus(uid, is_item_enabled)
+}
+function updateAmount(uid: string, amount: number) {
+  snacksStore.updateOrderAmount(uid, amount)
+}
 </script>
 
 <template>
@@ -33,23 +41,25 @@ async function onRemoveClick(id: string) {
       <thead>
         <tr>
           <th>
-            Item No
+            Toggle Item
           </th>
           <th>Name</th>
           <th>Cost</th>
           <th>Amount</th>
           <th>Total</th>
-          <th>Actions</th>
+          <th>Remove</th>
         </tr>
       </thead>
       <tbody>
         <tr v-for="(snacks, idx) in orders" :key="snacks?.id + idx ">
           <td>
-            {{ idx }}
+            <input v-model="snacks.is_item_enabled" type="checkbox" class="toggle toggle-primary" @change="updateList(snacks.uid, snacks.is_item_enabled)">
           </td>
           <td>{{ snacks.name }}</td>
           <td>{{ snacks.cost }}</td>
-          <td>{{ snacks.amount }}</td>
+          <td>
+            <input v-model="snacks.amount" type="number" placeholder="Type here" class="input input-bordered w-full max-w-xs" @change="updateAmount(snacks.uid, snacks.amount)">
+          </td>
           <td>{{ snacks.cost * snacks.amount }}</td>
           <td class="w-36">
             <button class="btn btn-error btn-sm" @click="onRemoveClick(snacks.uid)">

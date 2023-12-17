@@ -7,6 +7,8 @@ import AddMoneyModal from '@/components/AddMoneyModal.vue'
 
 const snacksStore = useSnacksStore()
 
+const selectedUser = ref('')
+
 const { allUsers } = storeToRefs(snacksStore)
 
 const showModal = ref(false)
@@ -18,6 +20,10 @@ const totalBalance = computed(() => {
     return pre += curr.balance || 0
   }, 0) || 0
 })
+
+function updateUser(uid: string) {
+  snacksStore.getSelectedUser(uid)
+}
 </script>
 
 <template>
@@ -33,14 +39,26 @@ const totalBalance = computed(() => {
           </button>
         </div>
       </div>
-      <div class="card w-96 bg-base-200  p-5 justify-center">
+      <div class="card w-130 bg-base-200  p-5 justify-center">
         <div class="flex space-x-5 items-center justify-between">
           <h2 class="card-title">
             Total Amount
           </h2>
-          <div class="form-control">
+          <div class="form-control bg-lime-500">
             <p>{{ totalBalance }} Tk</p>
           </div>
+          <h2>
+            <select v-model="selectedUser" class="select select-bordered flex">
+              <option v-for="user in snacksStore.allUsers" :key="user.id" :value="user.id">
+                {{ user.name }}
+              </option>
+            </select>
+          </h2>
+          <RouterLink to="/edit">
+            <button class="btn btn-primary" @click="updateUser(selectedUser)">
+              Edit User
+            </button>
+          </RouterLink>
         </div>
       </div>
     </div>
