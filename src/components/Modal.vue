@@ -38,37 +38,39 @@ const selectedItem = computed(() => foodItems.find(item => item.id === itemId.va
 
 async function addNedItem() {
   if (selectedItem.value) {
-    try {
-      isAdding.value = true
-      const user = await getCurrentUser()
-      const db = useFirestore()
+    if (itemAmount.value >= 0) {
+      try {
+        isAdding.value = true
+        const user = await getCurrentUser()
+        const db = useFirestore()
 
-      const obj = {
-        name: selectedItem.value.name,
-        id: selectedItem.value.id,
-        cost: selectedItem.value.cost,
-        amount: itemAmount.value,
-        is_item_enabled: true,
+        const obj = {
+          name: selectedItem.value.name,
+          id: selectedItem.value.id,
+          cost: selectedItem.value.cost,
+          amount: itemAmount.value,
+          is_item_enabled: true,
+        }
+        let url
+        if (props.updatedUser === undefined)
+          url = `snacks-users/${user?.uid}/snacks`
+        else
+          url = `snacks-users/${props.updatedUser.id}/snacks`
+        await addDoc(
+          collection(db, url),
+          obj,
+        )
+
+        snacksStore.getOrders()
+
+        itemId.value = ''
+        itemAmount.value = 0
+
+        emits('closeModal')
       }
-      let url
-      if (props.updatedUser === undefined)
-        url = `snacks-users/${user?.uid}/snacks`
-      else
-        url = `snacks-users/${props.updatedUser.id}/snacks`
-      await addDoc(
-        collection(db, url),
-        obj,
-      )
+      catch (error) {
 
-      snacksStore.getOrders()
-
-      itemId.value = ''
-      itemAmount.value = 0
-
-      emits('closeModal')
-    }
-    catch (error) {
-
+      }
     }
 
     isAdding.value = false
@@ -104,7 +106,10 @@ async function addNedItem() {
             <input v-model="itemAmount" type="number" placeholder="Type here" class="input input-bordered w-full max-w-xs">
           </div>
         </div>
-        <div v-if="selectedItem" class="text-md font-semibold text-center p-5">
+        <div v-if="itemAmount < 0" class="text-md font-semibold text-center p-5 text-red-600">
+          <p>PLEASE ENTER A VALID AMMOUNT</p>
+        </div>
+        <div v-else-if="selectedItem" class="text-md font-semibold text-center p-5">
           <p>{{ itemAmount }} {{ selectedItem.name }} Each Cost {{ selectedItem.cost }}Tk, Total = {{ itemAmount * selectedItem.cost }}Tk</p>
         </div>
         <div class="modal-action">

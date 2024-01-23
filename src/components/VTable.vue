@@ -30,6 +30,8 @@ function updateList(uid: string, is_item_enabled: boolean) {
   snacksStore.updateOrderEnabledStatus(uid, is_item_enabled)
 }
 function updateAmount(uid: string, amount: number) {
+  if (amount < 0)
+    amount = 0
   snacksStore.updateOrderAmount(uid, amount)
 }
 </script>
@@ -58,7 +60,7 @@ function updateAmount(uid: string, amount: number) {
           <td>{{ snacks.name }}</td>
           <td>{{ snacks.cost }}</td>
           <td>
-            <input v-model="snacks.amount" type="number" placeholder="Type here" class="input input-bordered w-full max-w-xs" @change="updateAmount(snacks.uid, snacks.amount)">
+            <input v-model="snacks.amount" type="number" :min="0" placeholder="Type here" class="input input-bordered w-full max-w-xs" @change="updateAmount(snacks.uid, snacks.amount)">
           </td>
           <td>{{ snacks.cost * snacks.amount }}</td>
           <td class="w-36">
