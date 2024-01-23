@@ -107,7 +107,7 @@ async function addNedItem() {
           </div>
         </div>
         <div v-if="itemAmount < 0" class="text-md font-semibold text-center p-5 text-red-600">
-          <p>PLEASE ENTER A VALID AMMOUNT</p>
+          <p>PLEASE ENTER A VALID AMOUNT</p>
         </div>
         <div v-else-if="selectedItem" class="text-md font-semibold text-center p-5">
           <p>{{ itemAmount }} {{ selectedItem.name }} Each Cost {{ selectedItem.cost }}Tk, Total = {{ itemAmount * selectedItem.cost }}Tk</p>
