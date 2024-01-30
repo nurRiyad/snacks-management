@@ -11,17 +11,21 @@ function onPrintClick() {
 </script>
 
 <template>
-  <div class="m-5">
-    <h1 class="text-center text-xl text-primary font-bold font-sans pb-5">
+  <div class="container max-w-5xl h-full mx-auto p-5">
+    <div class="flex my-3 justify-between">
+      <h1 class="text-2xl font-bold text-primary">
+        Balance Sheet
+      </h1>
       <button class="btn btn-primary" @click="onPrintClick">
         Print Balance Sheet
       </button>
-    </h1>
-    <div class="overflow-x-auto border rounded-md ml-40 mr-40">
+    </div>
+
+    <div class="overflow-x-auto border rounded-md">
       <table class="table table-zebra">
         <!-- head -->
         <thead>
-          <tr>
+          <tr class="text-base">
             <th>No</th>
             <th>Name</th>
             <th>Wallet</th>
@@ -31,7 +35,7 @@ function onPrintClick() {
           <tr v-for="(user, idx) in allUsers" :key="idx">
             <td>{{ idx }}</td>
             <td>{{ user.name }}</td>
-            <td class="bg-primary" :style=" user.balance >= 0 ? 'color: white;' : 'color: red' ">
+            <td :style=" user.balance >= 0 ? 'color: green;' : 'color: red' ">
               {{ user.balance }}
             </td>
           </tr>

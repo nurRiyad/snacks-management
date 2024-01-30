@@ -30,13 +30,13 @@ const router = createRouter({
     },
     {
       meta: { requiresAuth: true },
-      path: 'admin/balance',
+      path: '/admin/balance',
       name: 'balance',
       component: MoneyTable,
     },
     {
       meta: { requiresAuth: true },
-      path: 'admin/edit',
+      path: '/admin/edit',
       name: 'edit',
       component: EditView,
     },

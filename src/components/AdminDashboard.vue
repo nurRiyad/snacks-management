@@ -72,7 +72,7 @@ async function onOrderAndPrintClick() {
 
 const router = useRouter()
 function handleBalanceSheetClick() {
-  router.push('/balance')
+  router.push('/admin/balance')
 }
 </script>
 
