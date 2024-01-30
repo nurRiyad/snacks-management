@@ -3,6 +3,7 @@ import { useCurrentUser, useFirestore } from 'vuefire'
 import { storeToRefs } from 'pinia'
 import { doc, setDoc } from 'firebase/firestore'
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 import AdminTable from './AdminTable.vue'
 import AdminAction from './AdminAction.vue'
 
@@ -68,6 +69,11 @@ async function onOrderAndPrintClick() {
   }
   isLoading.value = false
 }
+
+const router = useRouter()
+function handleBalanceSheetClick() {
+  router.push('/balance')
+}
 </script>
 
 <template>
@@ -82,16 +88,16 @@ async function onOrderAndPrintClick() {
     </div>
     <div class="flex justify-center print:hidden">
       <button :disabled="isLoading" class="btn btn-primary m-3" @click="onOnlyPrintClick">
-        Only Print
+        Print Order
       </button>
-      <button class="btn btn-primary bg-red-700 m-3" :class="{ loading: isLoading }" @click="showModal = !showModal">
+
+      <button :disabled="isLoading" class="btn btn-primary m-3" @click="handleBalanceSheetClick">
+        Print Balance Sheet
+      </button>
+
+      <button class="btn btn-error m-3" :class="{ loading: isLoading }" @click="showModal = !showModal">
         Order & Print
       </button>
-      <router-link to="/balance">
-        <button :disabled="isLoading" class="btn btn-primary m-3">
-          Print Balance Sheet
-        </button>
-      </router-link>
     </div>
     <ConfirmModal
       :show-modal="showModal"

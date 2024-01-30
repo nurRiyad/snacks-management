@@ -44,8 +44,8 @@ function updateUser(uid: string) {
           <h2 class="card-title">
             Total Amount
           </h2>
-          <div class="form-control bg-lime-500">
-            <p>{{ totalBalance }} Tk</p>
+          <div class="form-control">
+            <p>{{ totalBalance }} BDT</p>
           </div>
           <h2>
             <select v-model="selectedUser" class="select select-bordered flex">
