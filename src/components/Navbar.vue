@@ -94,7 +94,7 @@ function formatDate(dateString: string): string {
           </label>
           <ul tabindex="0" class="menu menu-sm dropdown-content mt-2 z-[1] p-2 shadow bg-base-100 rounded-box w-36 space-y-1">
             <li>
-              <RouterLink to="/aboutme" class="justify-between">
+              <RouterLink to="/about-me" class="justify-between">
                 Profile
               </RouterLink>
             </li>
