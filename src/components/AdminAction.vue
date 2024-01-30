@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia'
 import { computed, ref } from 'vue'
+import { useRouter } from 'vue-router'
 import ToggleUserModal from './ToggleUserModal.vue'
 import { useSnacksStore } from '@/stores/counter'
 import AddMoneyModal from '@/components/AddMoneyModal.vue'
@@ -21,8 +22,9 @@ const totalBalance = computed(() => {
   }, 0) || 0
 })
 
-function updateUser(uid: string) {
-  snacksStore.getSelectedUser(uid)
+const router = useRouter()
+function handleEditClick() {
+  router.push('/admin/edit')
 }
 </script>
 
@@ -54,11 +56,9 @@ function updateUser(uid: string) {
               </option>
             </select>
           </h2>
-          <RouterLink to="/edit">
-            <button class="btn btn-primary" @click="updateUser(selectedUser)">
-              Edit User
-            </button>
-          </RouterLink>
+          <button :disabled="selectedUser === ''" class="btn btn-primary" @click="handleEditClick">
+            Edit User
+          </button>
         </div>
       </div>
     </div>
