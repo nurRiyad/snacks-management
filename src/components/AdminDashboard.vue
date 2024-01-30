@@ -87,12 +87,12 @@ function handleBalanceSheetClick() {
       <AdminTable :floor="5" />
     </div>
     <div class="flex justify-center print:hidden">
-      <button :disabled="isLoading" class="btn btn-primary m-3" @click="onOnlyPrintClick">
-        Print Order
+      <button :disabled="isLoading" class="btn btn-primary m-3" @click="handleBalanceSheetClick">
+        Balance Sheet
       </button>
 
-      <button :disabled="isLoading" class="btn btn-primary m-3" @click="handleBalanceSheetClick">
-        Print Balance Sheet
+      <button :disabled="isLoading" class="btn btn-primary m-3" @click="onOnlyPrintClick">
+        Print Order
       </button>
 
       <button class="btn btn-error m-3" :class="{ loading: isLoading }" @click="showModal = !showModal">
