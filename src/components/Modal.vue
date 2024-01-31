@@ -69,7 +69,7 @@ async function addNedItem() {
         emits('closeModal')
       }
       catch (error) {
-
+        console.error(error)
       }
     }
 

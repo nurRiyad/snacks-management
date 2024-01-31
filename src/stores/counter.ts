@@ -118,6 +118,29 @@ export const useSnacksStore = defineStore('snacks', () => {
     isOrdersDataFetching.value = false
   }
 
+  async function getOrdersForUserId(uid: string) {
+    isOrdersDataFetching.value = true
+
+    const db = useFirestore()
+
+    const url = `/snacks-users/${uid}/snacks`
+
+    const q = query(collection(db, url))
+
+    const querySnapshot = await getDocs(q)
+    const allData: Array<Order> = []
+    querySnapshot.forEach((doc) => {
+      // doc.data() is never undefined for query doc snapshots
+      const data = doc.data() as Order
+      if (data)
+        allData.push({ ...data, uid: doc.id })
+    })
+
+    orders.value = allData
+
+    isOrdersDataFetching.value = false
+  }
+
   async function getSnacksEnableUser() {
     isOrdersDataFetching.value = true
 
@@ -260,5 +283,6 @@ export const useSnacksStore = defineStore('snacks', () => {
     updateOrderEnabledStatus,
     updateOrderAmount,
     getSelectedUser,
+    getOrdersForUserId,
   }
 })

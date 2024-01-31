@@ -8,8 +8,6 @@ import AddMoneyModal from '@/components/AddMoneyModal.vue'
 
 const snacksStore = useSnacksStore()
 
-const selectedUser = ref('')
-
 const { allUsers } = storeToRefs(snacksStore)
 
 const showModal = ref(false)
@@ -31,13 +29,16 @@ function handleEditClick() {
 <template>
   <div>
     <div class="flex justify-around mt-4">
-      <div class="card w-96 bg-base-200 space-x-4  p-5">
-        <div class="flex justify-around">
+      <div class="card  bg-base-200 space-x-4  p-5">
+        <div class="flex space-x-3 justify-around">
           <button class="btn btn-primary" @click="showModal = !showModal">
             Add Money
           </button>
           <button class="btn btn-primary" @click="toggleUser = !toggleUser">
             Toggle user
+          </button>
+          <button class="btn btn-primary" @click="handleEditClick">
+            Edit User
           </button>
         </div>
       </div>
@@ -49,16 +50,6 @@ function handleEditClick() {
           <div class="form-control">
             <p>{{ totalBalance }} BDT</p>
           </div>
-          <h2>
-            <select v-model="selectedUser" class="select select-bordered flex">
-              <option v-for="user in snacksStore.allUsers" :key="user.id" :value="user.id">
-                {{ user.name }}
-              </option>
-            </select>
-          </h2>
-          <button :disabled="selectedUser === ''" class="btn btn-primary" @click="handleEditClick">
-            Edit User
-          </button>
         </div>
       </div>
     </div>
