@@ -16,6 +16,7 @@ const { loginUser } = storeToRefs(snackStore)
 const isRoot = computed(() => (route.fullPath === '/'))
 const isSnacks = computed(() => route.fullPath === '/snacks')
 const isAdmin = computed(() => route.fullPath === '/admin')
+const isLastOrders = computed(() => route.fullPath === '/last-orders')
 
 async function onLogoutClick() {
   try {
@@ -62,6 +63,14 @@ function formatDate(dateString: string): string {
           :class="{ 'text-primary': isSnacks }"
         >
           Snacks
+        </RouterLink>
+        <RouterLink
+          v-if="user"
+          to="/last-orders"
+          class="btn btn-ghost normal-case text-xl"
+          :class="{ 'text-primary': isLastOrders }"
+        >
+          Last Orders
         </RouterLink>
         <RouterLink
           v-if="loginUser?.isAdmin"

@@ -24,6 +24,12 @@ const router = createRouter({
     },
     {
       meta: { requiresAuth: true },
+      path: '/last-orders',
+      name: 'last-orders',
+      component: () => import('@/views/LastOrders.vue'),
+    },
+    {
+      meta: { requiresAuth: true },
       path: '/admin',
       name: 'admin',
       component: AdminView,
