@@ -40,7 +40,9 @@ async function getAllOrders() {
 
   orderHistories.value.sort((a, b) => String(b.date).localeCompare(a.date))
 
-  selectedDate.value = orderHistories.value[0]?.date || ''
+  if (orderHistories.value.length)
+    selectedDate.value = orderHistories.value[0]?.date || ''
+
   return orderHistories
 }
 
@@ -57,9 +59,9 @@ const user = useCurrentUser()
 
 <template>
   <div>
-    <div class="flex m-5 space-x-3 items-baseline">
+    <div v-if="selectedDate" class="flex m-5 space-x-3 items-baseline">
       <h1 class="text-xl font-semibold">
-        Selected Date :
+        Select Date :
       </h1>
       <select v-model="selectedDate" class="select select-sm select-bordered">
         <option v-for="order in orderHistories" :key="order.date" :value="order.date">
@@ -75,11 +77,11 @@ const user = useCurrentUser()
 
     <div v-else>
       <p class="text-center font-bold text-warning py-10">
-        Select date from select box to get order history
+        Currently No Order History Available
       </p>
     </div>
 
-    <p class="text-center">
+    <p v-if="selectedDate" class="text-center">
       Ordered by  <span class="font-semibold">{{ user?.displayName || user?.email }}</span>
     </p>
   </div>
