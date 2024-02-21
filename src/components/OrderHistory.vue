@@ -3,6 +3,7 @@ import { useCurrentUser, useFirestore } from 'vuefire'
 import { collection, getDocs, query } from 'firebase/firestore'
 import { computed, ref } from 'vue'
 import AdminTable from './AdminTable.vue'
+import { useSnacksStore } from '@/stores/counter'
 
 interface Order {
   name: string
@@ -45,7 +46,10 @@ const selectedHistory = computed(() => {
   return orderHistories.value.find(hi => hi.date === selectedDate.value)
 })
 
+const snacksStore = useSnacksStore()
 await getAllOrders()
+
+await snacksStore.getUser()
 const user = useCurrentUser()
 </script>
 
