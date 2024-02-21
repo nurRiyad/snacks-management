@@ -9,6 +9,7 @@ import AdminAction from './AdminAction.vue'
 
 import ConfirmModal from './ConfirmModal.vue'
 import { type Order, type User, useSnacksStore } from '@/stores/counter'
+import { useTotalOrders } from '@/composables/useTotalOrders'
 
 const snacksStore = useSnacksStore()
 
@@ -49,6 +50,10 @@ async function updateUserBalance(user: User) {
   await setDoc(docRef, payload, { merge: true })
 }
 
+async function updateHistory() {
+  console.error('Update history')
+}
+
 async function onOrderAndPrintClick() {
   try {
     showModal.value = false
@@ -62,6 +67,8 @@ async function onOrderAndPrintClick() {
     await snacksStore.getSnacksEnableUser()
     await snacksStore.getAllUser()
 
+    await updateHistory()
+
     window.print()
   }
   catch (error) {
@@ -74,6 +81,14 @@ const router = useRouter()
 function handleBalanceSheetClick() {
   router.push('/admin/balance')
 }
+
+const { generatedOrders, overallAmount } = useTotalOrders()
+
+const ordersForFloor1 = generatedOrders(1)
+const ttlAmountForFloor1 = overallAmount(1)
+
+const ordersForFloor5 = generatedOrders(5)
+const ttlAmountForFloor5 = overallAmount(5)
 </script>
 
 <template>
@@ -83,8 +98,8 @@ function handleBalanceSheetClick() {
     </div>
 
     <div class="mb-10 flex justify-center">
-      <AdminTable :floor="1" />
-      <AdminTable :floor="5" />
+      <AdminTable :floor="1" :orders="ordersForFloor1" :ttl-amount="ttlAmountForFloor1" />
+      <AdminTable :floor="5" :orders="ordersForFloor5" :ttl-amount="ttlAmountForFloor5" />
     </div>
     <div class="flex justify-center print:hidden">
       <button :disabled="isLoading" class="btn btn-primary m-3" @click="handleBalanceSheetClick">
