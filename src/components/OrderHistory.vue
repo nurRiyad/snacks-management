@@ -38,6 +38,8 @@ async function getAllOrders() {
       orderHistories.value.push({ ...data })
   })
 
+  orderHistories.value.sort((a, b) => String(b.date).localeCompare(a.date))
+
   selectedDate.value = orderHistories.value[0]?.date || ''
   return orderHistories
 }
