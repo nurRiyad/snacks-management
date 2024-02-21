@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { useTotalOrders } from '@/composables/useTotalOrders'
-
 interface Order {
   name: string
   cost: number
@@ -15,16 +13,11 @@ interface Props {
   orders?: Array<Order>
 }
 
-const props = withDefaults(defineProps<Props>(), {
+withDefaults(defineProps<Props>(), {
   floor: 0,
   ttlAmount: 0,
   orders: () => ([]),
 })
-
-const { generatedOrders, overallAmount } = useTotalOrders()
-
-const orders = generatedOrders(props.floor)
-const ttlAmount = overallAmount(props.floor)
 </script>
 
 <template>
