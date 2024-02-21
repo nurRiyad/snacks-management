@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useCurrentUser, useFirestore } from 'vuefire'
 import { storeToRefs } from 'pinia'
-import { doc, setDoc } from 'firebase/firestore'
+import { addDoc, collection, doc, setDoc } from 'firebase/firestore'
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import AdminTable from './AdminTable.vue'
@@ -9,6 +9,7 @@ import AdminAction from './AdminAction.vue'
 
 import ConfirmModal from './ConfirmModal.vue'
 import { type Order, type User, useSnacksStore } from '@/stores/counter'
+import { useTotalOrders } from '@/composables/useTotalOrders'
 
 const snacksStore = useSnacksStore()
 
@@ -17,6 +18,14 @@ await snacksStore.getAllUser()
 
 const showModal = ref(false)
 const isLoading = ref(false)
+
+const { generatedOrders, overallAmount } = useTotalOrders()
+
+const ordersForFloor1 = generatedOrders(1)
+const ttlAmountForFloor1 = overallAmount(1)
+
+const ordersForFloor5 = generatedOrders(5)
+const ttlAmountForFloor5 = overallAmount(5)
 
 const user = useCurrentUser()
 const { snacksEnabledUsers } = storeToRefs(snacksStore)
@@ -49,6 +58,20 @@ async function updateUserBalance(user: User) {
   await setDoc(docRef, payload, { merge: true })
 }
 
+async function updateHistory() {
+  const db = useFirestore()
+  await addDoc(
+    collection(db, 'snacks-history'),
+    {
+      floor1: ordersForFloor1,
+      floor5: ordersForFloor5,
+      date: Date.now(),
+      totalCost: ttlAmountForFloor1 + ttlAmountForFloor5,
+      orderBy: user.value?.displayName,
+    },
+  )
+}
+
 async function onOrderAndPrintClick() {
   try {
     showModal.value = false
@@ -61,6 +84,8 @@ async function onOrderAndPrintClick() {
 
     await snacksStore.getSnacksEnableUser()
     await snacksStore.getAllUser()
+
+    await updateHistory()
 
     window.print()
   }
@@ -83,8 +108,8 @@ function handleBalanceSheetClick() {
     </div>
 
     <div class="mb-10 flex justify-center">
-      <AdminTable :floor="1" />
-      <AdminTable :floor="5" />
+      <AdminTable :floor="1" :orders="ordersForFloor1" :ttl-amount="ttlAmountForFloor1" />
+      <AdminTable :floor="5" :orders="ordersForFloor5" :ttl-amount="ttlAmountForFloor5" />
     </div>
     <div class="flex justify-center print:hidden">
       <button :disabled="isLoading" class="btn btn-primary m-3" @click="handleBalanceSheetClick">

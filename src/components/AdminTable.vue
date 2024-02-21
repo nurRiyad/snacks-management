@@ -1,69 +1,23 @@
 <script setup lang="ts">
-import { storeToRefs } from 'pinia'
-import { useSnacksStore } from '@/stores/counter'
-import { foodItems } from '@/utils/foodItem'
+interface Order {
+  name: string
+  cost: number
+  id: string
+  amount: number
+  total: number
+}
 
 interface Props {
-  floor: number
+  floor?: number
+  ttlAmount?: number
+  orders?: Array<Order>
 }
 
-const props = withDefaults(defineProps<Props>(), {
+withDefaults(defineProps<Props>(), {
   floor: 0,
+  ttlAmount: 0,
+  orders: () => ([]),
 })
-
-const snacksStore = useSnacksStore()
-
-const { snacksEnabledUsers } = storeToRefs(snacksStore)
-
-function calculateTotalAmount(foodId: string) {
-  let count = 0
-  snacksEnabledUsers.value.forEach((usr) => {
-    if (usr.floor === props.floor) {
-      usr.orders?.forEach((ord) => {
-        if (ord.id === foodId && ord.is_item_enabled)
-          count += ord.amount
-      })
-    }
-  })
-
-  return count
-}
-
-function calculateTotalCost(foodId: string, cost: number) {
-  const ttlAmount = calculateTotalAmount(foodId)
-
-  return ttlAmount * cost
-}
-
-function generatedOrders() {
-  return foodItems.map((food) => {
-    return {
-      name: food.name,
-      cost: food.cost,
-      id: food.id,
-      amount: calculateTotalAmount(food.id),
-      total: calculateTotalCost(food.id, food.cost),
-    }
-  }) || []
-}
-
-function filteredOrders() {
-  const data = generatedOrders()
-  return data.filter((odr) => {
-    return odr.total !== 0
-  }) || []
-}
-
-function overallAmount() {
-  const allData = filteredOrders()
-  let cost = 0
-
-  allData.forEach((data) => {
-    cost += data.total
-  })
-
-  return cost
-}
 </script>
 
 <template>
@@ -84,7 +38,7 @@ function overallAmount() {
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(snacks, idx) in filteredOrders()" :key="snacks?.id + idx ">
+          <tr v-for="(snacks, idx) in orders" :key="snacks?.id + idx ">
             <td>{{ idx }}</td>
             <td>{{ snacks.name }}</td>
             <td>{{ snacks.cost }}</td>
@@ -92,16 +46,16 @@ function overallAmount() {
             <td>{{ snacks.total }}</td>
           </tr>
 
-          <tr v-if="filteredOrders().length !== 0">
+          <tr v-if="orders.length !== 0">
             <td colspan="4" class="text-center">
               Total Amount
             </td>
             <td colspan="4">
-              {{ overallAmount() }}
+              {{ ttlAmount }}
             </td>
           </tr>
 
-          <tr v-if="filteredOrders().length === 0">
+          <tr v-if="orders.length === 0">
             <td colspan="6" class="text-center">
               No Content Available !
             </td>
