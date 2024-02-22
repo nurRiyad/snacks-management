@@ -97,7 +97,7 @@ await snacksStore.getUser()
       </p>
     </div>
 
-    <p v-if="selectedDate" class="text-center">
+    <p v-if="selectedDate" class="text-center p-5">
       Ordered by  <span class="font-semibold">{{ selectedHistory?.orderBy }}</span>
     </p>
   </div>
