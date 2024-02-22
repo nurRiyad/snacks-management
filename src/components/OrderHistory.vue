@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useCurrentUser, useFirestore } from 'vuefire'
+import { useFirestore } from 'vuefire'
 import { collection, getDocs, query } from 'firebase/firestore'
 import { computed, ref } from 'vue'
 import AdminTable from './AdminTable.vue'
@@ -15,10 +15,12 @@ interface Order {
 
 interface OrderHistory {
   date: string
-  totalCost: number
-  orderedBy: string
+  orderBy: string
   floor1: Array<Order>
+  floor1Cost: number
   floor5: Array<Order>
+  floor5Cost: number
+  userList: Array<string>
 }
 
 const selectedDate = ref('')
@@ -54,7 +56,6 @@ const snacksStore = useSnacksStore()
 await getAllOrders()
 
 await snacksStore.getUser()
-const user = useCurrentUser()
 </script>
 
 <template>
@@ -70,9 +71,24 @@ const user = useCurrentUser()
       </select>
       <!-- Add other user information here -->
     </div>
-    <div v-if="selectedHistory" class="mb-10 flex justify-center">
-      <AdminTable :floor="1" :orders="selectedHistory?.floor1" :ttl-amount="selectedHistory?.totalCost" />
-      <AdminTable :floor="5" :orders="selectedHistory?.floor5" :ttl-amount="selectedHistory?.totalCost" />
+    <div v-if="selectedHistory">
+      <div>
+        <h4 class="text-xl text-center text-primary font-semibold">
+          Ordered User list
+        </h4>
+        <div class="flex justify-center font-semibold space-x-5 py-5">
+          <p v-for="usr in selectedHistory.userList" :key="usr">
+            {{ usr }}
+          </p>
+          <p v-if="!selectedHistory.userList?.length">
+            No user in the list
+          </p>
+        </div>
+      </div>
+      <div class="">
+        <AdminTable :floor="1" :orders="selectedHistory?.floor1" :ttl-amount="selectedHistory?.floor1Cost" />
+        <AdminTable :floor="5" :orders="selectedHistory?.floor5" :ttl-amount="selectedHistory?.floor5Cost" />
+      </div>
     </div>
 
     <div v-else>
@@ -82,7 +98,7 @@ const user = useCurrentUser()
     </div>
 
     <p v-if="selectedDate" class="text-center">
-      Ordered by  <span class="font-semibold">{{ user?.displayName || user?.email }}</span>
+      Ordered by  <span class="font-semibold">{{ selectedHistory?.orderBy }}</span>
     </p>
   </div>
 </template>

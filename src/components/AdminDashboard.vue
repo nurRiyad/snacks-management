@@ -59,15 +59,24 @@ async function updateUserBalance(user: User) {
 }
 
 async function updateHistory() {
+  const onlyOrderedUser = snacksEnabledUsers.value.filter((usr) => {
+    const orderAmount = orderAmountOfUser(usr.orders || [])
+    return orderAmount > 0
+  })
+
+  const userNameList = onlyOrderedUser.map(usr => usr.name)
+
   const db = useFirestore()
   await addDoc(
     collection(db, 'snacks-history'),
     {
       floor1: ordersForFloor1,
+      floor1Cost: ttlAmountForFloor1,
       floor5: ordersForFloor5,
+      floor5Cost: ttlAmountForFloor5,
       date: Date.now(),
-      totalCost: ttlAmountForFloor1 + ttlAmountForFloor5,
       orderBy: user.value?.displayName,
+      userList: userNameList || [],
     },
   )
 }
