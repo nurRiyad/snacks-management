@@ -40,13 +40,13 @@ export const foodItems = [
     name: 'Dim Poach ',
     bnName: 'ডিম পোঁচ',
     id: 'dimpoc',
-    cost: 20,
+    cost: 25,
   },
   {
     name: 'Dim Vaji',
     bnName: 'ডিম ভাজি',
     id: 'dimvaji',
-    cost: 20,
+    cost: 25,
   },
   {
     name: 'Kolija Bhuna',
