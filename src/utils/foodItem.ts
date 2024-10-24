@@ -19,6 +19,12 @@ export const foodItems = [
 
   },
   {
+    name: 'Bhaji',
+    bnName: 'ভাজি',
+    id: 'bhaji',
+    cost: 20,
+  },
+  {
     name: 'Ruti',
     bnName: 'রুটি',
     id: 'ruti',
