@@ -1,13 +1,13 @@
 export const foodItems = [
   {
     name: 'Mug Dal',
-    bnName: 'মুগের ডাল',
+    bnName: 'মুগ ডাল',
     id: 'mugdal',
     cost: 20,
   },
   {
-    name: 'Mugdal + Vaji',
-    bnName: 'মুগডাল + ভাজি',
+    name: 'Mug dal + Vaji',
+    bnName: 'মুগ ডাল + ভাজি',
     id: 'mugdalvaji',
     cost: 20,
   },
@@ -38,7 +38,7 @@ export const foodItems = [
   },
   {
     name: 'Tel Chara Porata',
-    bnName: 'তেলছাড়া পরাটা',
+    bnName: 'তেল ছাড়া পরাটা',
     id: 'telcharaporata',
     cost: 10,
   },
@@ -61,8 +61,8 @@ export const foodItems = [
     cost: 120,
   },
   {
-    name: 'Khichuri with beaf',
-    bnName: 'খিচুরি গরুর মাংসের ',
+    name: 'Beef Khichuri',
+    bnName: 'গরুর মাংসের খিচুরি',
     id: 'khicuri',
     cost: 120,
   },
