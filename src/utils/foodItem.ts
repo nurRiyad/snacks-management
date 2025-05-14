@@ -1,46 +1,40 @@
 export const foodItems = [
   {
-    name: 'Mug Dal',
-    bnName: 'মুগ ডাল',
+    name: 'Tundol ruti',
+    bnName: 'তুন্দল রুটি ',
     id: 'mugdal',
-    cost: 20,
+    cost: 15,
   },
   {
-    name: 'Mug dal + Vaji',
-    bnName: 'মুগ ডাল + ভাজি',
+    name: 'Mug dal',
+    bnName: 'মুগ ডাল',
     id: 'mugdalvaji',
-    cost: 20,
+    cost: 30,
   },
   {
-    name: 'Buter Dal',
-    bnName: 'বুটের ডাল',
+    name: 'Dal',
+    bnName: 'ডাল',
     id: 'buterdal',
-    cost: 20,
+    cost: 25,
 
   },
   {
     name: 'Bhaji',
     bnName: 'ভাজি',
     id: 'bhaji',
-    cost: 20,
-  },
-  {
-    name: 'Ruti',
-    bnName: 'রুটি',
-    id: 'ruti',
-    cost: 10,
+    cost: 25,
   },
   {
     name: 'Porata',
     bnName: 'পরাটা',
     id: 'porata',
-    cost: 10,
+    cost: 15,
   },
   {
     name: 'Tel Chara Porata',
     bnName: 'তেল ছাড়া পরাটা',
     id: 'telcharaporata',
-    cost: 10,
+    cost: 15,
   },
   {
     name: 'Dim Poach ',
@@ -55,15 +49,9 @@ export const foodItems = [
     cost: 25,
   },
   {
-    name: 'Kolija Bhuna',
-    bnName: 'কলিজা ভুনা',
-    id: 'kolija',
-    cost: 120,
-  },
-  {
-    name: 'Beef Khichuri',
-    bnName: 'গরুর মাংসের খিচুরি',
-    id: 'khicuri',
-    cost: 120,
+    name: 'Shahi Halua',
+    bnName: 'শাহি হালুয়া ',
+    id: 'halua',
+    cost: 40,
   },
 ]

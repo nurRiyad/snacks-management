@@ -2,7 +2,7 @@ import { ref } from 'vue'
 import { defineStore } from 'pinia'
 import { getCurrentUser, useFirestore } from 'vuefire'
 import { collection, doc, getDoc, query } from '@firebase/firestore'
-import { getDocs, setDoc, updateDoc, where } from 'firebase/firestore'
+import { deleteDoc, getDocs, setDoc, updateDoc, where } from 'firebase/firestore'
 
 export interface Order {
   name: string
@@ -265,6 +265,34 @@ export const useSnacksStore = defineStore('snacks', () => {
     }
     isUserDataFetching.value = false
   }
+
+  // Add the clearUserOrders function
+  async function clearUserOrders(userId: string): Promise<void> {
+    isOrdersDataFetching.value = true
+    const db = useFirestore()
+    try {
+      // Get all orders for the user
+      const ordersUrl = `/snacks-users/${userId}/snacks`
+      const ordersQuery = query(collection(db, ordersUrl))
+      const ordersSnapshot = await getDocs(ordersQuery)
+      // Delete each order document
+      const deletePromises = ordersSnapshot.docs.map((doc) => {
+        return deleteDoc(doc.ref)
+      })
+      // Wait for all deletions to complete
+      await Promise.all(deletePromises)
+      // Refresh the user list
+      await getAllUser()
+    }
+    catch (error) {
+      console.error('Error clearing orders:', error)
+      throw error
+    }
+    finally {
+      isOrdersDataFetching.value = false
+    }
+  }
+
   return {
     orders,
     loginUser,
@@ -284,5 +312,6 @@ export const useSnacksStore = defineStore('snacks', () => {
     updateOrderAmount,
     getSelectedUser,
     getOrdersForUserId,
+    clearUserOrders, // Make sure this is included in the return statement
   }
 })
