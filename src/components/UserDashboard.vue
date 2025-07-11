@@ -63,6 +63,9 @@ watch(() => loginUser.value?.id, (n) => {
         </div>
       </div>
     </div>
+    <div v-if="loginUser?.balance && loginUser?.balance <= 0" class="text-red-500 text-sm mt-2 justify-center text-center">
+      Your balance is low, please contact with authority to recharge.
+    </div>
     <div class="divider" />
     <div>
       <div v-if="isSnacksEnable">
